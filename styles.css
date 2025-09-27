@@ -1,0 +1,162 @@
+/* --- Base / Defaults --- */
+:root {
+  --text: #2D3748;
+  --accent: #48BB78;
+  --link: #4299E1;
+  --muted: #718096;
+  --header-bg: #63B3ED;
+  --header-text: #FFFFFF;
+  --about-bg: #E2E8F0;
+  --footer-bg: #2C5282;
+  --footer-text: #FFFFFF;
+}
+
+/* Default text style */
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+
+body {
+  margin: 0;
+  font-size: 18px;                    /* required */
+  color: var(--text);                  /* required */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, "Noto Sans", sans-serif; /* required */
+  line-height: 1.6;
+  background: #fff;
+}
+
+/* --- Grid Layout (MUST use CSS Grid) --- */
+.container {
+  display: grid;                       /* required: Grid for page layout */
+  grid-template-columns: 1fr 320px;    /* main + sidebar */
+  grid-template-rows: auto 1fr auto;   /* header, content, footer */
+  grid-template-areas:
+    "header  header"
+    "content sidebar"
+    "footer  footer";
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
+.site-header   { grid-area: header; }
+.content       { grid-area: content; }
+.sidebar       { grid-area: sidebar; }
+.site-footer   { grid-area: footer;  }
+
+/* --- Header (Flexbox centering required) --- */
+.site-header {
+  background: var(--header-bg);        /* required */
+  color: var(--header-text);           /* required */
+  padding: 2rem;
+  display: flex;                       /* required: Flexbox here */
+  align-items: center;                 /* vertical center */
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.site-header .avatar {
+  width: 120px; 
+  height: 120px;
+  border-radius: 50%;                  /* required: circle effect */
+  object-fit: cover;
+  border: 4px solid rgba(255,255,255,0.6);
+  object-position: center;
+
+}
+
+.headline { display: flex; flex-direction: column; justify-content: center; }
+
+.headline h1 {
+  margin: 0 0 .25rem;
+  font-size: 36px;                     /* required */
+  font-family: Georgia, "Times New Roman", Times, serif; /* required */
+  color: var(--header-text);
+}
+
+.tagline { margin: 0; color: var(--header-text); }
+
+/* --- Posts --- */
+.post { margin-bottom: 2.5rem; }
+
+.post h2 {
+  font-size: 32px;                     /* required */
+  color: var(--accent);                /* required */
+  margin: 0 0 .25rem;
+}
+
+.post-meta {
+  color: var(--muted);                 /* required */
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+}
+
+/* Float images so text wraps around them (per requirement) */
+.post-image {
+  margin: .25rem 1rem 1rem 0;
+  width: 260px;   /* or whatever size you want */
+  height: auto;   /* auto keeps it proportional */
+}
+.float-left  { float: left; }
+.float-right { float: right; margin: .25rem 0 1rem 1rem; }
+
+/* Clearfix for wrapped text */
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* --- Sidebar --- */
+.sidebar section { margin-bottom: 1.75rem; }
+
+.sidebar h3 {
+  margin: 0 0 .5rem;
+  font-family: Georgia, "Times New Roman", Times, serif; /* required */
+}
+
+/* Required colors for headings */
+.about h3    { color: #000000; }       /* required */
+.social h3,
+.archives h3 { color: var(--accent); } /* required */
+
+.about {
+  background: var(--about-bg);         /* required */
+  padding: 1rem;                       /* required */
+}
+
+.sidebar ul {
+  list-style: disc inside;
+  padding: 0;
+  margin: .25rem 0 0 0;
+}
+
+.sidebar a {
+  color: var(--link);                  /* required */
+  text-decoration: none;
+}
+.sidebar a:hover { text-decoration: underline; }
+
+/* --- Footer --- */
+.site-footer {
+  background: var(--footer-bg);        /* required */
+  color: var(--footer-text);           /* required */
+  padding: 1.25rem;
+  text-align: center;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;        /* stack columns */
+    grid-template-areas:
+      "header"
+      "content"
+      "sidebar"
+      "footer";
+  }
+  .site-header { text-align: center; flex-direction: column; }
+  .float-left, .float-right { float: none; margin: .5rem 0 1rem 0; }
+  .site-header .avatar { width: 100px; height: 100px; }
+}
